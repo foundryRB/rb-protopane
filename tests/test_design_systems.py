@@ -293,5 +293,5 @@ def test_identity_sources_remain_a_machine_gate_under_oidc() -> None:
     from protopane.adapters.inbound.http.auth import _gated
 
     assert _gated("/api/identity-sources", "mcp")
-    assert _gated("/api/identity-sources/vodafone-digital-engineering", "mcp")
+    assert _gated("/api/identity-sources/rb-software-engineering", "mcp")
     assert not _gated("/api/design-systems", "mcp")

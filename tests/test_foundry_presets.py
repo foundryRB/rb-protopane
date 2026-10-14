@@ -7,14 +7,14 @@ from protopane.domain.token_discipline import lint_theme_tokens
 
 def test_approved_identities_have_distinct_exact_light_and_dark_palettes():
     systems = {s.slug: s for s in PackagedDesignSystemLibrary().list_design_systems()}
-    for slug in ("vodafone-digital-engineering",):
+    for slug in ("rb-software-engineering",):
         dark, light = systems[slug], systems[slug + "-light"]
         assert not lint_theme_tokens(dark.tokens)
         assert not lint_theme_tokens(light.tokens)
         assert dark.tokens["--background"] != light.tokens["--background"]
         assert dark.tokens["--primary"] == light.tokens["--primary"]
         assert dark.source.startswith("https://")
-    assert systems["vodafone-digital-engineering"].tokens["--primary"] == "0.00 100.00% 45.10%"
+    assert systems["rb-software-engineering"].tokens["--primary"] == "0.00 100.00% 45.10%"
 
 
 def test_packaged_presets_are_the_current_projection_of_their_identities():
@@ -68,7 +68,7 @@ def test_an_identitys_stage_recipe_renders_both_appearances_and_names_no_other_h
     from pathlib import Path
 
     path = Path(__file__).resolve().parents[1] / (
-        "design-systems/vodafone-digital-engineering/brand/stage_css.py"
+        "design-systems/rb-software-engineering/brand/stage_css.py"
     )
     spec = importlib.util.spec_from_file_location("stage_css", path)
     module = importlib.util.module_from_spec(spec)
@@ -77,8 +77,8 @@ def test_an_identitys_stage_recipe_renders_both_appearances_and_names_no_other_h
     assert ".ambient > *" in css and ".ambient::before" in css and ".ambient::after" in css
     assert ':root[data-theme="light"] .ambient' in css
     assert "prefers-reduced-motion" in css and "@media print" in css
-    assert "#e60000" not in css.lower() or "rgba(230, 0, 0" in css  # the red, never a wash in light
-    assert "design-systems/vodafone-digital-engineering/brand/stage_css.py" in css
+    assert "#00a86b" not in css.lower() or "rgba(0, 168, 107" in css  # the green, never a wash in light
+    assert "design-systems/rb-software-engineering/brand/stage_css.py" in css
     for foreign in ("upstream", "_sync", ":/", "fork"):
         assert foreign not in css.lower(), foreign
 
@@ -94,7 +94,7 @@ def test_each_stage_recipe_draws_a_page_stage_behind_content_in_both_appearances
 
     root = Path(__file__).resolve().parents[1] / "design-systems"
     pages = {}
-    for identity in ("vodafone-digital-engineering",):
+    for identity in ("rb-software-engineering",):
         recipe = root / identity / "brand/stage_css.py"
         spec = importlib.util.spec_from_file_location(f"stage_{identity}", recipe)
         module = importlib.util.module_from_spec(spec)
@@ -107,7 +107,7 @@ def test_each_stage_recipe_draws_a_page_stage_behind_content_in_both_appearances
         assert "prefers-reduced-motion" in css and "@media print" in css, identity
         assert 'html[data-hidden="true"] [data-stage]' in css, identity
         pages[identity] = (markup, css)
-    markup, css = pages["vodafone-digital-engineering"]
+    markup, css = pages["rb-software-engineering"]
     assert '@media (prefers-color-scheme: light)' in css
     assert ':root:not([data-theme="dark"]) [data-stage="field"]' in css
     # The deck shell's stage: three glows, the grid, eighteen motes and a vignette, sized on the
@@ -137,9 +137,9 @@ def test_the_mark_is_one_labelled_snippet_whose_artwork_follows_the_appearance()
     from pathlib import Path
 
     root = Path(__file__).resolve().parents[1]
-    mark = (root / "design-systems/vodafone-digital-engineering/brand/mark.html").read_text("utf-8")
+    mark = (root / "design-systems/rb-software-engineering/brand/mark.html").read_text("utf-8")
     assert mark.startswith('<span class="mark" role="img" aria-label="') and mark.count("\n") == 1
-    assert "light-dark(#E60000,#f2f4f8)" in mark  # the tile: red on paper, white on the dark stage
+    assert "light-dark(#00a86b,#f2f4f8)" in mark  # the tile: red on paper, white on the dark stage
     assert "width:2em;height:2em" in mark  # the slot's font-size sizes it
     for fetch in ("http", "url(", "<img", "<link"):
         assert fetch not in mark, fetch

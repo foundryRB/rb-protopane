@@ -4,10 +4,10 @@ id: DOC-BRAND-001
 type: Reference
 status: Active
 updated: "2026-09-13"
-summary: The Vodafone Portugal Digital identity in the studio; each prototype keeps its own design system.
+summary: The RB Software Engineering identity in the studio; each prototype keeps its own design system.
 ---
 
-ProtoPane's studio wears the Vodafone Portugal Digital identity: the lockup as the one mark in its headers, the brand's red as the primary and the ambient field's colour, a near-black stage in dark and paper in light, the brand face for text. Each prototype carries its selected design system inside the canvas and in exported tokens and markup.
+ProtoPane's studio wears the RB Software Engineering identity: the lockup as the one mark in its headers, the brand's green as the primary and the ambient field's colour, a near-black stage in dark and paper in light, system fonts for text. Each prototype carries its selected design system inside the canvas and in exported tokens and markup.
 
 ## Appearance ownership
 

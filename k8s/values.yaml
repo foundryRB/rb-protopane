@@ -2,11 +2,11 @@
 # its docs site, each promoted by its own Image Updater alias writing images.<component>.tag.
 images:
   app:
-    repository: ghcr.io/vfpt-vodafone-foundry/protopane-app
+    repository: ghcr.io/foundryrb/protopane-app
     tag: latest
     pullPolicy: Always
   docs:
-    repository: ghcr.io/vfpt-vodafone-foundry/protopane-docs
+    repository: ghcr.io/foundryrb/protopane-docs
     tag: latest
     pullPolicy: Always
 
@@ -19,7 +19,7 @@ paused: false
 imagePullSecrets:
   - name: ghcr-pull
 
-host: protopane.vodafone-foundry.com
+host: protopane.rb-foundry.com
 
 # Per-team Gateway created by foundry-platform (platform/teams/protopane.yaml).
 gateway:
@@ -56,7 +56,7 @@ auth:
   existingSecret: protopane-auth
   oidc:
     enabled: true
-    issuer: https://keycloak.vodafone-foundry.com/realms/protopane
+    issuer: https://keycloak.rb-foundry.com/realms/protopane
     clientId: protopane
     emailDomains: "*"
     # Client secret + cookie secret; minted in-cluster in this namespace by the
@@ -94,7 +94,7 @@ config:
   PROTOPANE_PROJECTS_DIR: /data/projects
   # The MCP transport's DNS-rebinding guard admits localhost only by default;
   # a deployment must allow the Host header of its public hostname.
-  PROTOPANE_MCP_ALLOWED_HOSTS: protopane.vodafone-foundry.com
+  PROTOPANE_MCP_ALLOWED_HOSTS: protopane.rb-foundry.com
 
 # Per-app docs site served behind the central portal at docs.<domain>/apps/<app>
 # (ADR-018). Built from docs/ by CI with base baked in; this just runs the image.

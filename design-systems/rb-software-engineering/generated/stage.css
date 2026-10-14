@@ -1,0 +1,55 @@
+/* -- The Software Engineering stage, the deck shell's own --------------------------------------------
+   Sized on its own box (positions in %, drifts and the grid in container units), so the same stage
+   fills a slide canvas or a browser window. Source: design-systems/rb-software-engineering/
+   brand/stage_css.py render_page(). Print hides it, reduced motion stops it, a hidden page pauses it. */
+[data-stage="field"]{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;container-type:size;background:linear-gradient(160deg,#0b0d12 0%,#070910 55%,#04050a 100%)}
+[data-stage="field"] [data-stage]{position:absolute;display:block}
+[data-stage^="glow"]{border-radius:50%;will-change:transform;animation-timing-function:linear;animation-iteration-count:infinite}
+[data-stage="glow-a"]{left:-21.12%;top:-30.11%;width:81.22%;height:95.06%;background:radial-gradient(closest-side,rgba(78,224,160, 0.30) 0%,rgba(0,168,107, 0.10) 55%,rgba(0,168,107, 0) 100%);animation-name:rb-glow-a;animation-duration:26s}
+@keyframes rb-glow-a{0%,100%{transform:translate(0,0)}33.33%{transform:translate(8.57cqw,8.71cqh)}66.67%{transform:translate(-3.88cqw,5.08cqh)}}
+[data-stage="glow-b"]{left:36.02%;top:25.03%;width:93.67%;height:104.85%;background:radial-gradient(closest-side,rgba(27,36,54,0.85) 0%,rgba(27,36,54,0) 100%);animation-name:rb-glow-b;animation-duration:34s}
+@keyframes rb-glow-b{0%,100%{transform:translate(0,0)}33.33%{transform:translate(-7.04cqw,-7.44cqh)}66.67%{transform:translate(4.69cqw,-3.81cqh)}}
+[data-stage="glow-c"]{left:35.92%;top:-22.49%;width:68.78%;height:75.1%;background:radial-gradient(closest-side,rgba(0,168,107, 0.16) 0%,rgba(0,168,107, 0) 100%);animation-name:rb-glow-c;animation-duration:41s}
+@keyframes rb-glow-c{0%,100%{transform:translate(0,0)}33.33%{transform:translate(-5.51cqw,11.25cqh)}66.67%{transform:translate(3.16cqw,6.17cqh)}}
+[data-stage="grid"]{inset:0;background-image:repeating-linear-gradient(rgba(255,255,255,.022) 0 1px,transparent 1px 4px),linear-gradient(to right,rgba(0,168,107,.13) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,168,107,.13) 1px,transparent 1px),linear-gradient(to right,rgba(0,168,107,.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,168,107,.07) 1px,transparent 1px);background-size:auto,12.5cqw 12.5cqw,12.5cqw 12.5cqw,3.125cqw 3.125cqw,3.125cqw 3.125cqw}
+[data-stage="motes"]{inset:0}
+[data-stage="motes"]>span{position:absolute;border-radius:50%;background:#4ee0a0;opacity:0;will-change:transform,opacity;animation:rb-mote linear infinite}
+@keyframes rb-mote{0%{transform:translateY(0);opacity:0}25%{opacity:var(--mote)}70%{opacity:var(--mote)}100%{transform:translateY(-23.58cqh);opacity:0}}
+[data-stage="motes"]>span:nth-child(1){left:9.18%;top:86.17%;width:2.8px;height:2.8px;animation-duration:13s;animation-delay:-1.4s;--mote:0.69}
+[data-stage="motes"]>span:nth-child(2){left:18.98%;top:92.7%;width:2.1px;height:2.1px;animation-duration:17s;animation-delay:-6.2s;--mote:0.5}
+[data-stage="motes"]>span:nth-child(3){left:27.45%;top:77.28%;width:3.2px;height:3.2px;animation-duration:11.5s;animation-delay:-3.1s;--mote:0.75}
+[data-stage="motes"]>span:nth-child(4){left:37.96%;top:96.33%;width:2.3px;height:2.3px;animation-duration:15.5s;animation-delay:-9s;--mote:0.56}
+[data-stage="motes"]>span:nth-child(5){left:44.59%;top:81.81%;width:2.6px;height:2.6px;animation-duration:19s;animation-delay:-2.2s;--mote:0.63}
+[data-stage="motes"]>span:nth-child(6){left:52.14%;top:90.7%;width:2px;height:2px;animation-duration:12.5s;animation-delay:-7.7s;--mote:0.48}
+[data-stage="motes"]>span:nth-child(7){left:57.96%;top:75.46%;width:3.1px;height:3.1px;animation-duration:16s;animation-delay:-4.5s;--mote:0.73}
+[data-stage="motes"]>span:nth-child(8){left:65.51%;top:94.69%;width:2.4px;height:2.4px;animation-duration:14s;animation-delay:-11.3s;--mote:0.53}
+[data-stage="motes"]>span:nth-child(9){left:71.53%;top:83.81%;width:2.1px;height:2.1px;animation-duration:18.5s;animation-delay:-0.9s;--mote:0.6}
+[data-stage="motes"]>span:nth-child(10){left:78.47%;top:91.61%;width:2.9px;height:2.9px;animation-duration:12s;animation-delay:-5.6s;--mote:0.7}
+[data-stage="motes"]>span:nth-child(11){left:85%;top:78.19%;width:2.3px;height:2.3px;animation-duration:20s;animation-delay:-8.4s;--mote:0.55}
+[data-stage="motes"]>span:nth-child(12){left:91.63%;top:95.42%;width:2.6px;height:2.6px;animation-duration:15s;animation-delay:-3.7s;--mote:0.65}
+[data-stage="motes"]>span:nth-child(13){left:5%;top:74.56%;width:2px;height:2px;animation-duration:21s;animation-delay:-10.1s;--mote:0.45}
+[data-stage="motes"]>span:nth-child(14){left:23.37%;top:99.95%;width:2.8px;height:2.8px;animation-duration:13.8s;animation-delay:-12.6s;--mote:0.63}
+[data-stage="motes"]>span:nth-child(15){left:48.47%;top:99.05%;width:2.1px;height:2.1px;animation-duration:17.6s;animation-delay:-2.8s;--mote:0.5}
+[data-stage="motes"]>span:nth-child(16){left:75%;top:101.41%;width:2.4px;height:2.4px;animation-duration:16.4s;animation-delay:-6.9s;--mote:0.58}
+[data-stage="motes"]>span:nth-child(17){left:96.12%;top:87.44%;width:2.3px;height:2.3px;animation-duration:19.6s;animation-delay:-14.2s;--mote:0.54}
+[data-stage="motes"]>span:nth-child(18){left:33.57%;top:86.17%;width:2px;height:2px;animation-duration:22s;animation-delay:-1.7s;--mote:0.43}
+[data-stage="vignette"]{inset:0;background:radial-gradient(72% 72% at 50% 42%,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%)}
+:root[data-theme="light"] [data-stage="field"]{background:none}
+:root[data-theme="light"] [data-stage="grid"]{background-image:linear-gradient(to right,rgba(0,122,77,.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,122,77,.07) 1px,transparent 1px),linear-gradient(to right,rgba(0,122,77,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,122,77,.035) 1px,transparent 1px);background-size:12.5cqw 12.5cqw,12.5cqw 12.5cqw,3.125cqw 3.125cqw,3.125cqw 3.125cqw}
+:root[data-theme="light"] [data-stage="motes"]>span{background:#00a86b}
+:root[data-theme="light"] [data-stage="vignette"]{display:none}
+:root[data-theme="light"] [data-stage="glow-a"]{background:radial-gradient(closest-side,rgba(255,255,255,0.95) 0%,rgba(255,255,255,0) 100%);animation-duration:48s}
+:root[data-theme="light"] [data-stage="glow-b"]{background:radial-gradient(closest-side,rgba(37,40,43,0.055) 0%,rgba(37,40,43,0) 100%)}
+:root[data-theme="light"] [data-stage="glow-c"]{display:none}
+@media (prefers-color-scheme: light) {
+:root:not([data-theme="dark"]) [data-stage="field"]{background:none}
+:root:not([data-theme="dark"]) [data-stage="grid"]{background-image:linear-gradient(to right,rgba(0,122,77,.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,122,77,.07) 1px,transparent 1px),linear-gradient(to right,rgba(0,122,77,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,122,77,.035) 1px,transparent 1px);background-size:12.5cqw 12.5cqw,12.5cqw 12.5cqw,3.125cqw 3.125cqw,3.125cqw 3.125cqw}
+:root:not([data-theme="dark"]) [data-stage="motes"]>span{background:#00a86b}
+:root:not([data-theme="dark"]) [data-stage="vignette"]{display:none}
+:root:not([data-theme="dark"]) [data-stage="glow-a"]{background:radial-gradient(closest-side,rgba(255,255,255,0.95) 0%,rgba(255,255,255,0) 100%);animation-duration:48s}
+:root:not([data-theme="dark"]) [data-stage="glow-b"]{background:radial-gradient(closest-side,rgba(37,40,43,0.055) 0%,rgba(37,40,43,0) 100%)}
+:root:not([data-theme="dark"]) [data-stage="glow-c"]{display:none}
+}
+@media print{[data-stage="field"]{display:none!important}}
+@media (prefers-reduced-motion: reduce){[data-stage],[data-stage] span{animation:none!important}}
+html[data-hidden="true"] [data-stage],html[data-hidden="true"] [data-stage] span{animation-play-state:paused!important}

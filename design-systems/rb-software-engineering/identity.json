@@ -1,0 +1,43 @@
+{
+  "id": "rb-software-engineering",
+  "name": "RB Software Engineering",
+  "source": "https://rb-library.rb-foundry.com/rb-software-engineering-design-system.html",
+  "modes": {
+    "dark": {
+      "canvas": "#04050a",
+      "surface": "#11141b",
+      "raised": "#0b0d12",
+      "ink": "#f2f4f8",
+      "muted": "#c3cad6",
+      "line": "#353b47",
+      "action-ink": "#ffffff",
+      "link": "#4ee0a0",
+      "good": "#4ade9b",
+      "warn": "#ffb547",
+      "bad": "#ff969a",
+      "focus": "#4bd5e8",
+      "sans": "-apple-system, \"SF Pro Display\", \"Helvetica Neue\", \"Segoe UI\", Arial, sans-serif",
+      "mono": "ui-monospace, \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace",
+      "radius": "2px",
+      "brand": "#00a86b"
+    },
+    "light": {
+      "canvas": "#f2f2f2",
+      "surface": "#ffffff",
+      "raised": "#f2f2f2",
+      "ink": "#25282b",
+      "muted": "#4a4d4e",
+      "line": "#bebebe",
+      "action-ink": "#ffffff",
+      "link": "#007a4d",
+      "good": "#226547",
+      "warn": "#795100",
+      "bad": "#ad2838",
+      "focus": "#00798c",
+      "sans": "-apple-system, \"SF Pro Display\", \"Helvetica Neue\", \"Segoe UI\", Arial, sans-serif",
+      "mono": "ui-monospace, \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace",
+      "radius": "2px",
+      "brand": "#00a86b"
+    }
+  }
+}

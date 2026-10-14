@@ -154,7 +154,7 @@ def test_identity_source_machine_reads_require_basic_even_under_oidc(
 ) -> None:
     client = _build_client(tmp_path, monkeypatch, PROTOPANE_AUTH_SCOPE="mcp",
                            PROTOPANE_AUTH_USER="reader", PROTOPANE_AUTH_PASSWORD="secret")
-    for path in ("/api/identity-sources", "/api/identity-sources/vodafone-digital-engineering"):
+    for path in ("/api/identity-sources", "/api/identity-sources/rb-software-engineering"):
         assert client.get(path).status_code == 401
         assert client.get(path, headers=_basic("reader", "wrong")).status_code == 401
         assert client.get(path, headers=_basic("reader", "secret")).status_code == 200

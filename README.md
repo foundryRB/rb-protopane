@@ -1,6 +1,6 @@
 # protopane
 
-The packaged design-system catalog includes Vodafone Portugal Digital Engineering in Dark and Light. Their sources live in this repository ([design-systems/](design-systems/README.md)); `python design-systems/generate.py` projects them into the packaged presets, and `--check` verifies the projection. The public HTTP and MCP library reads expose them alongside the existing reference systems. Deploy the updated package to update the live library.
+The packaged design-system catalog includes RB Software Engineering in Dark and Light. Their sources live in this repository ([design-systems/](design-systems/README.md)); `python design-systems/generate.py` projects them into the packaged presets, and `--check` verifies the projection. The public HTTP and MCP library reads expose them alongside the existing reference systems. Deploy the updated package to update the live library.
 
 A multi-project visual prototyping hub. Theme a shadcn/ui component set to a customer's brand on a live canvas, build screens by dragging blocks, and keep each client as its own project. Export the theme and markup to hand off into a real React frontend.
 
@@ -118,7 +118,7 @@ concern (the cluster snapshots the volume), not the app's.
 - `protopane/container.py` - composition root
 - `frontend/` - React + Vite + Tailwind SPA embedding the GrapesJS canvas; served as static files by the backend in the built image
 - `devops/` - multi-stage Dockerfile and docker-compose
-- `k8s/` - Helm chart for the vodafone-foundry.com install
+- `k8s/` - Helm chart for the rb-foundry.com install
 - `docs/` - Starlight documentation site
 - `intent.yaml` - CSD intent claims, attested by `pytest-intent` (backend) and `playwright-intent` (e2e)
 

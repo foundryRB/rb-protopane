@@ -1,0 +1,53 @@
+/* RB Software Engineering: a Starlight docs site in the identity, both appearances.
+   Load it AFTER the shared docs theme. It sets the greys, the accent and the surfaces explicitly
+   (the shared theme sets its surfaces by name, so overriding the grey scale alone changes nothing):
+   a white reading surface with the identity's greys in Light, the stage's surfaces in Dark, the
+   green as the accent, a NEUTRAL low accent.
+   Text uses system font stacks. The lockup is
+   the site logo (lockup-light.svg / lockup-dark.svg beside this file), one mark in the header. */
+:root { --rb-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+:root { --sl-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+:root[data-theme='dark'] {
+  --sl-color-white: hsl(0 0% 95%);
+  --sl-color-gray-1: hsl(0 0% 85%);
+  --sl-color-gray-2: hsl(0 0% 75%);
+  --sl-color-gray-3: hsl(0 0% 49%);
+  --sl-color-gray-4: hsl(210 4% 37%);
+  --sl-color-gray-5: hsl(210 6% 25%);
+  --sl-color-gray-6: hsl(210 7% 16%);
+  --sl-color-black: hsl(210 7% 12%);
+  --sl-color-accent-low: hsl(158 60% 16%);
+  --sl-color-accent: hsl(154 70% 59%);
+  --sl-color-accent-high: hsl(154 70% 82%);
+}
+:root[data-theme='light'] {
+  --sl-color-white: hsl(0 0% 5%);
+  --sl-color-gray-1: hsl(210 7% 16%);
+  --sl-color-gray-2: hsl(200 3% 23%);
+  --sl-color-gray-3: hsl(195 3% 30%);
+  --sl-color-gray-4: hsl(0 0% 49%);
+  --sl-color-gray-5: hsl(0 0% 75%);
+  --sl-color-gray-6: hsl(0 0% 90%);
+  --sl-color-gray-7: hsl(0 0% 95%);
+  --sl-color-black: hsl(0 0% 100%);
+  --sl-color-accent-low: hsl(0 0% 93%);
+  --sl-color-accent: hsl(158 100% 24%);
+  --sl-color-accent-high: hsl(158 100% 18%);
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #f7f7f7;
+  --sl-color-bg-inline-code: #ececec;
+  --sl-color-hairline-light: #d9d9d9;
+  --sl-color-hairline: #d9d9d9;
+  --sl-color-hairline-shade: #bebebe;
+}
+:root[data-theme='dark'] {
+  --sl-color-bg: #04050a;
+  --sl-color-bg-nav: #0b0d12;
+  --sl-color-bg-sidebar: #070910;
+  --sl-color-bg-inline-code: #11141b;
+  --sl-color-hairline-light: #353b47;
+  --sl-color-hairline: #23272f;
+  --sl-color-hairline-shade: #04050a;
+}
+.site-title img { height: 1.6rem; width: auto; }

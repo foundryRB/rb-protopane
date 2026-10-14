@@ -1,10 +1,6 @@
 {
-  "vodafone-digital-engineering/assets/flag.svg": {
-    "sha256": "d7e90451f5362d332040e8dac6f6fbd5e763c99408bf275b3cbdfcd76c956c85",
-    "bytes": 781
-  },
-  "vodafone-digital-engineering/assets/logo.png": {
-    "sha256": "5082392a52b8ecdcdc86d6d95da76ba1d302bee19a4b322bdd26cb12545aadbf",
-    "bytes": 19012
+  "rb-software-engineering/assets/logo.png": {
+    "sha256": "3df2eed51087173869031ef42dcd47614d30a3af38059865d8709585b7916b2a",
+    "bytes": 11546
   }
 }

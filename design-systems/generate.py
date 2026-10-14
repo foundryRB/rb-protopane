@@ -73,7 +73,7 @@ def css_tokens(identity: dict, mode: str) -> str:
     return ":root{" + f"color-scheme:{mode};" + roles + "}\n"
 
 
-# A face file is named for the family it carries and its weight: Vodafone-400.woff2.
+# A face file is named for the family it carries and its weight: JetBrainsMono-600.woff2.
 FACE_FILE = re.compile(r"^(?P<family>.+)-(?P<weight>\d{3})\.woff2$")
 
 
