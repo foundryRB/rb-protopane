@@ -1,0 +1,14 @@
+.git
+.venv
+**/node_modules
+**/dist
+**/.e2e-projects
+projects/
+.diag-projects/
+**/test-results
+**/playwright-report
+**/__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+*.egg-info

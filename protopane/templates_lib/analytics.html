@@ -1,0 +1,99 @@
+<div class="space-y-6 p-2">
+  <header class="flex flex-wrap items-center gap-x-4 gap-y-2 border-b pb-4">
+    <span class="font-semibold tracking-tight text-foreground">Analytics</span>
+    <nav class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+      <a class="text-foreground">Traffic</a>
+      <a class="hover:text-foreground">Conversion</a>
+      <a class="hover:text-foreground">Retention</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-2">
+      <button class="inline-flex items-center rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium hover:bg-accent">Last 30 days</button>
+      <button class="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90">Export</button>
+    </div>
+  </header>
+
+  <div class="grid gap-4 sm:grid-cols-4">
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
+      <div class="text-sm font-medium text-muted-foreground">Visitors</div>
+      <div class="mt-1 text-2xl font-bold">128,430</div>
+      <div class="mt-1 text-xs text-muted-foreground">+12.4% vs previous period</div>
+    </div>
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
+      <div class="text-sm font-medium text-muted-foreground">Sign-ups</div>
+      <div class="mt-1 text-2xl font-bold">4,912</div>
+      <div class="mt-1 text-xs text-muted-foreground">+8.1% vs previous period</div>
+    </div>
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
+      <div class="text-sm font-medium text-muted-foreground">Conversion</div>
+      <div class="mt-1 text-2xl font-bold">3.8%</div>
+      <div class="mt-1 text-xs text-muted-foreground">-0.3 pt vs previous period</div>
+    </div>
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
+      <div class="text-sm font-medium text-muted-foreground">Churn</div>
+      <div class="mt-1 text-2xl font-bold">1.1%</div>
+      <div class="mt-1 text-xs text-muted-foreground">steady</div>
+    </div>
+  </div>
+
+  <div class="grid gap-4 lg:grid-cols-3">
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm lg:col-span-2">
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-medium">Weekly visitors</div>
+        <span class="text-xs text-muted-foreground">Mon - Sun</span>
+      </div>
+      <div class="mt-4 flex h-40 items-end gap-3">
+        <div class="flex-1 rounded-t-md bg-primary/30" style="height: 45%"></div>
+        <div class="flex-1 rounded-t-md bg-primary/40" style="height: 60%"></div>
+        <div class="flex-1 rounded-t-md bg-primary/55" style="height: 52%"></div>
+        <div class="flex-1 rounded-t-md bg-primary/70" style="height: 78%"></div>
+        <div class="flex-1 rounded-t-md bg-primary" style="height: 92%"></div>
+        <div class="flex-1 rounded-t-md bg-primary/60" style="height: 64%"></div>
+        <div class="flex-1 rounded-t-md bg-primary/45" style="height: 48%"></div>
+      </div>
+      <div class="mt-2 grid grid-cols-7 gap-3 text-center text-xs text-muted-foreground">
+        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+      </div>
+    </div>
+
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
+      <div class="text-sm font-medium">Top sources</div>
+      <div class="mt-4 flex flex-col gap-3 text-sm">
+        <div>
+          <div class="flex items-center justify-between"><span>Organic search</span><span class="text-muted-foreground">44%</span></div>
+          <div class="mt-1 h-2 w-full overflow-hidden rounded-full bg-secondary"><div class="h-full w-[44%] rounded-full bg-primary"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between"><span>Referrals</span><span class="text-muted-foreground">27%</span></div>
+          <div class="mt-1 h-2 w-full overflow-hidden rounded-full bg-secondary"><div class="h-full w-[27%] rounded-full bg-primary"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between"><span>Social</span><span class="text-muted-foreground">18%</span></div>
+          <div class="mt-1 h-2 w-full overflow-hidden rounded-full bg-secondary"><div class="h-full w-[18%] rounded-full bg-primary"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between"><span>Direct</span><span class="text-muted-foreground">11%</span></div>
+          <div class="mt-1 h-2 w-full overflow-hidden rounded-full bg-secondary"><div class="h-full w-[11%] rounded-full bg-primary"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div role="region" aria-labelledby="analytics-pages-caption" tabindex="0" class="w-full overflow-x-auto rounded-lg border bg-card text-card-foreground">
+    <table class="w-full whitespace-nowrap text-sm">
+      <caption id="analytics-pages-caption" class="px-3 py-2 text-left font-medium">Top pages</caption>
+      <thead>
+        <tr class="border-b bg-muted text-left text-muted-foreground">
+          <th class="sticky left-0 bg-muted px-3 py-2 font-medium">Page</th>
+          <th class="px-3 py-2 font-medium">Views</th>
+          <th class="px-3 py-2 font-medium">Avg. time</th>
+          <th class="px-3 py-2 font-medium">Bounce</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b"><td class="sticky left-0 bg-card px-3 py-2">/pricing</td><td class="px-3 py-2">32,110</td><td class="px-3 py-2">1m 42s</td><td class="px-3 py-2">38%</td></tr>
+        <tr class="border-b"><td class="sticky left-0 bg-card px-3 py-2">/features</td><td class="px-3 py-2">24,873</td><td class="px-3 py-2">2m 08s</td><td class="px-3 py-2">31%</td></tr>
+        <tr><td class="sticky left-0 bg-card px-3 py-2">/docs</td><td class="px-3 py-2">18,224</td><td class="px-3 py-2">4m 51s</td><td class="px-3 py-2">22%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

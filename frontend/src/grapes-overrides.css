@@ -1,0 +1,111 @@
+/* Professional theming for the GrapesJS chrome. Colours track the shadcn design
+   tokens so the builder reads as a finished product surface, not a stock developer
+   tool. Scoped under .gjs-editor to win specificity over grapes.min.css. */
+
+.gjs-editor,
+.gjs-editor .gjs-pn-panel,
+.gjs-editor .gjs-block,
+.gjs-editor .gjs-sm-sector,
+.gjs-editor .gjs-layer-name {
+    font-family: 'Segoe UI Variable', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Panel + icon palette */
+.gjs-editor .gjs-one-bg {
+    background-color: hsl(var(--card));
+}
+.gjs-editor .gjs-two-color {
+    color: hsl(var(--foreground));
+}
+.gjs-editor .gjs-three-bg {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+}
+.gjs-editor .gjs-four-color,
+.gjs-editor .gjs-four-color-h:hover {
+    color: hsl(var(--link));
+}
+
+.gjs-editor .gjs-pn-panel {
+    border-color: hsl(var(--border));
+}
+.gjs-editor .gjs-pn-btn {
+    color: hsl(var(--muted-foreground));
+    border-radius: 6px;
+}
+.gjs-editor .gjs-pn-btn:hover {
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--accent));
+}
+.gjs-editor .gjs-pn-btn.gjs-pn-active {
+    color: hsl(var(--link));
+    box-shadow: none;
+}
+
+/* Canvas viewport: an artboard on a muted backdrop */
+.gjs-editor .gjs-cv-canvas {
+    background-color: hsl(var(--muted));
+}
+
+/* Block palette */
+.gjs-editor .gjs-blocks-c {
+    gap: 6px;
+    padding: 8px;
+}
+.gjs-editor .gjs-block {
+    border: 1px solid hsl(var(--border));
+    border-radius: 8px;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    box-shadow: none;
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease;
+}
+.gjs-editor .gjs-block:hover {
+    border-color: hsl(var(--link));
+    background-color: hsl(var(--accent));
+}
+.gjs-editor .gjs-block-label {
+    font-size: 11px;
+}
+
+/* Each block is a full-width tile with a themed mini-render of the component on top,
+   so dragging shows the real thing (and it reskins with the live theme). */
+.gjs-editor .gjs-block {
+    flex: 1 0 100%;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    padding: 8px;
+}
+.gjs-editor .gjs-block .pp-prev {
+    pointer-events: none;
+    width: 100%;
+    max-height: 104px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--background));
+    padding: 10px;
+}
+.gjs-editor .gjs-block-category .gjs-title,
+.gjs-editor .gjs-sm-sector-title,
+.gjs-editor .gjs-layer-title {
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
+    font-weight: 600;
+}
+
+/* Style-manager + trait fields */
+.gjs-editor .gjs-field {
+    background-color: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: 6px;
+    color: hsl(var(--foreground));
+}
+.gjs-editor .gjs-sm-label,
+.gjs-editor .gjs-clm-tags-label {
+    color: hsl(var(--muted-foreground));
+}

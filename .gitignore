@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Local config + project data + test artifacts
+.env
+projects/
+.e2e-projects/
+# Runtime-saved templates (the app writes these under PROTOPANE_TEMPLATES_DIR)
+/templates/
+frontend/templates/
+
+# Node (the frontend and docs carry their own ignores too)
+node_modules/
+
+# k8s deploy secrets - real token values stay local, never committed.
+# Everything else (values-prod.yaml, the chart) is tracked.
+k8s/secrets/*
+!k8s/secrets/*.example

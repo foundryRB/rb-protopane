@@ -1,0 +1,80 @@
+# protopane tests: backend suite (including the MCP protocol tests), the
+# Playwright e2e intent suite, docs Starlight meta-tests, and the cross-runtime
+# intent audit. Separate from build.yml (conformance + release): tests gate the
+# code, the build ships artifacts. Runs on the in-cluster ARC runners (arc-dind);
+# when k3s is down the run queues until a runner is available.
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: arc-dind
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      # The dev extra carries pytest-intent (csd-pytest-intent, from PyPI).
+      - run: python -m pip install -e ".[dev]"
+      - run: ruff check .
+      - run: python -m pytest -q
+
+  e2e:
+    runs-on: arc-dind
+    container: mcr.microsoft.com/playwright:v1.60.0-jammy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install the backend
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+      - name: Install the frontend and browsers
+        working-directory: frontend
+        run: |
+          npm install
+          npx playwright install chromium
+      - name: Playwright e2e intent suite
+        working-directory: frontend
+        env:
+          PROTOPANE_BACKEND_CMD: python -m protopane
+        run: npx playwright test
+
+  docs:
+    runs-on: arc-dind
+    defaults:
+      run:
+        working-directory: docs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Starlight meta-tests
+        run: |
+          npm ci
+          npm test
+
+  intent-audit:
+    runs-on: arc-dind
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install csd-intent
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "csd-intent~=0.4.0"
+      - name: Audit intent claims (root + docs, cross-runtime)
+        run: csd-intent . --fail-on any

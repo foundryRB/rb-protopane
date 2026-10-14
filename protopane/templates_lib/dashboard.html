@@ -1,0 +1,60 @@
+<div class="space-y-6 p-2">
+  <header class="flex flex-wrap items-center gap-x-4 gap-y-2 border-b pb-4">
+    <span class="font-semibold tracking-tight text-foreground">Dashboard</span>
+    <nav class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+      <a class="text-foreground">Overview</a>
+      <a class="hover:text-foreground">Customers</a>
+      <a class="hover:text-foreground">Settings</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-2">
+      <input placeholder="Search..." class="h-9 w-40 rounded-md border border-input bg-transparent px-3 text-base shadow-sm placeholder:text-muted-foreground sm:text-sm" />
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground">JD</span>
+    </div>
+  </header>
+
+  <div class="grid gap-4 sm:grid-cols-3">
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
+      <div class="text-sm font-medium text-muted-foreground">Total revenue</div>
+      <div class="mt-1 text-2xl font-bold">$45,231.89</div>
+      <div class="mt-1 text-xs text-muted-foreground">+20.1% from last month</div>
+    </div>
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
+      <div class="text-sm font-medium text-muted-foreground">Subscriptions</div>
+      <div class="mt-1 text-2xl font-bold">+2,350</div>
+      <div class="mt-1 text-xs text-muted-foreground">+180.1% from last month</div>
+    </div>
+    <div class="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
+      <div class="text-sm font-medium text-muted-foreground">Active now</div>
+      <div class="mt-1 text-2xl font-bold">+573</div>
+      <div class="mt-1 text-xs text-muted-foreground">+201 since last hour</div>
+    </div>
+  </div>
+
+  <div class="grid gap-4 lg:grid-cols-3">
+    <div class="min-w-0 rounded-lg border bg-card text-card-foreground shadow-sm lg:col-span-2">
+      <div class="flex items-center justify-between p-4">
+        <div class="font-semibold">Recent transactions</div>
+        <button class="text-sm text-muted-foreground hover:text-foreground">View all</button>
+      </div>
+      <div role="region" aria-labelledby="dashboard-transactions-caption" tabindex="0" class="overflow-x-auto border-t">
+        <table class="w-full whitespace-nowrap text-sm">
+          <caption id="dashboard-transactions-caption" class="sr-only">Recent transactions</caption>
+          <thead><tr class="border-b bg-muted text-left text-muted-foreground"><th class="sticky left-0 bg-muted px-4 py-2 font-medium">Customer</th><th class="px-4 py-2 font-medium">Status</th><th class="px-4 py-2 font-medium">Amount</th></tr></thead>
+          <tbody>
+            <tr class="border-b"><td class="sticky left-0 bg-card px-4 py-2">Olivia Martin</td><td class="px-4 py-2"><span class="inline-flex items-center rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">Paid</span></td><td class="px-4 py-2">$1,999.00</td></tr>
+            <tr class="border-b"><td class="sticky left-0 bg-card px-4 py-2">Jackson Lee</td><td class="px-4 py-2"><span class="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">Pending</span></td><td class="px-4 py-2">$39.00</td></tr>
+            <tr><td class="sticky left-0 bg-card px-4 py-2">Isabella Nguyen</td><td class="px-4 py-2"><span class="inline-flex items-center rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">Paid</span></td><td class="px-4 py-2">$299.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+      <div class="p-4 font-semibold">Activity</div>
+      <div class="divide-y border-t">
+        <div class="flex items-center justify-between p-3 text-sm"><span>New signup</span><span class="text-muted-foreground">2m ago</span></div>
+        <div class="flex items-center justify-between p-3 text-sm"><span>Invoice paid</span><span class="text-muted-foreground">1h ago</span></div>
+        <div class="flex items-center justify-between p-3 text-sm"><span>Plan upgraded</span><span class="text-muted-foreground">3h ago</span></div>
+      </div>
+    </div>
+  </div>
+</div>

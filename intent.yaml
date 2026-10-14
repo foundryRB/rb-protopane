@@ -1,0 +1,799 @@
+# protopane intent claims (CSD-INTENT-01). Canonical root spec for the whole repo.
+# Backend (Bnn) claims are attested by pytest markers under tests/.
+# End-to-end (Enn) claims are attested by playwright-intent markers under frontend/e2e/.
+# Audit cross-runtime with: csd-intent .
+
+INT-PP-B01:
+  version: 1.0.0
+  status: active
+  statement: "Creating a project MUST persist it and make it appear in the project listing."
+  rationale: "The hub is worthless if a created client project does not survive or show up."
+  test:
+    scope: integration
+    component: ProjectApi
+    type: behavior
+  criticality: critical
+
+INT-PP-B02:
+  version: 1.0.0
+  status: active
+  statement: "A newly created project MUST start with the default theme and a starter screen."
+  rationale: "A new project must open ready to theme and build, not empty."
+  test:
+    scope: unit
+    component: CreateProject
+    type: behavior
+  criticality: high
+
+INT-PP-B03:
+  version: 1.1.0
+  status: active
+  statement: "Saving a theme MUST update and persist the project's design tokens; a save naming a packaged design system records that provenance (guidance snapshotted verbatim), an unknown system is refused, and an omitted one leaves recorded provenance intact."
+  rationale: "The brand the customer approves has to be the brand that reloads."
+  test:
+    scope: integration
+    component: SaveTheme
+    type: behavior
+  criticality: critical
+
+INT-PP-B04:
+  version: 1.0.0
+  status: active
+  statement: "Saving a screen MUST upsert it by slug (replace same, append new) and persist."
+  rationale: "Editing a screen must not duplicate it, and a new screen must be added."
+  test:
+    scope: integration
+    component: SaveScreen
+    type: behavior
+  criticality: high
+
+INT-PP-B05:
+  version: 1.0.0
+  status: active
+  statement: "Requesting a project that does not exist MUST return 404."
+  rationale: "Missing projects are a client error, not a server crash."
+  test:
+    scope: integration
+    component: ProjectApi
+    type: behavior
+  criticality: medium
+
+INT-PP-B06:
+  version: 1.0.0
+  status: active
+  statement: "Two projects created with the same name MUST receive distinct slugs."
+  rationale: "Slug is the identity and storage key; collisions would overwrite a client's work."
+  test:
+    scope: integration
+    component: CreateProject
+    type: invariant
+  criticality: high
+
+INT-PP-B07:
+  version: 1.1.0
+  status: active
+  statement: "Exporting a project MUST yield the theme as a :root CSS block, the screen bodies, and the recorded design-system provenance (null for a hand-authored theme)."
+  rationale: "The handoff to a real frontend needs portable tokens + markup."
+  test:
+    scope: unit
+    component: ExportProject
+    type: behavior
+  criticality: high
+
+INT-PP-B08:
+  version: 1.0.0
+  status: active
+  statement: "Deleting a project MUST remove it from persistence."
+  rationale: "Removing a client engagement must actually free its storage and listing."
+  test:
+    scope: integration
+    component: ProjectApi
+    type: behavior
+  criticality: medium
+
+INT-PP-B09:
+  version: 1.0.0
+  status: active
+  statement: "With a built frontend present, the backend MUST serve the SPA at / and at client routes (SPA fallback), alongside /api."
+  rationale: "The production single image serves the UI from the backend; the 502/no-frontend gap was this path being untested."
+  test:
+    scope: integration
+    component: FrontendServe
+    type: behavior
+  criticality: high
+
+INT-PP-B10:
+  version: 1.0.0
+  status: active
+  statement: "With no built frontend, the backend MUST return a clear build hint at / rather than a bare 404, while /api still works."
+  rationale: "Running the API without building the SPA should explain itself, not look broken."
+  test:
+    scope: integration
+    component: FrontendServe
+    type: behavior
+  criticality: low
+
+INT-PP-B11:
+  version: 1.1.0
+  status: active
+  statement: "Listing templates MUST include the built-in starter templates (landing, dashboard, analytics, pricing, settings, form)."
+  rationale: "Operators need ready-made examples to open and adapt, not a blank canvas every time."
+  test:
+    scope: integration
+    component: TemplateApi
+    type: behavior
+  criticality: high
+
+INT-PP-B12:
+  version: 1.0.0
+  status: active
+  statement: "Creating a project from a template MUST use that template's html as the project's first screen."
+  rationale: "Choosing an example must actually start the project from that example."
+  test:
+    scope: integration
+    component: CreateProject
+    type: behavior
+  criticality: high
+
+INT-PP-B13:
+  version: 1.0.0
+  status: active
+  statement: "Saving a screen as a template MUST make it listable and retrievable."
+  rationale: "Operators must be able to capture and reuse their own layouts, not only the built-ins."
+  test:
+    scope: integration
+    component: TemplateApi
+    type: behavior
+  criticality: medium
+
+INT-PP-B14:
+  version: 1.1.0
+  status: active
+  statement: "With auth configured, a request without valid credentials MUST be rejected with 401 on every surface, including the /mcp mount."
+  rationale: "The instance holds client prototypes and is internet-exposed; unauthenticated access must be refused by the app on every door, not only at the edge."
+  test:
+    scope: integration
+    component: Auth
+    type: behavior
+  criticality: critical
+
+INT-PP-B15:
+  version: 1.0.0
+  status: active
+  statement: "With auth configured, a request carrying valid credentials MUST be allowed."
+  rationale: "The gate must admit the operator, not only block strangers."
+  test:
+    scope: integration
+    component: Auth
+    type: behavior
+  criticality: high
+
+INT-PP-B16:
+  version: 1.0.0
+  status: active
+  statement: "The health endpoint MUST be reachable without credentials."
+  rationale: "Liveness and readiness probes call it unauthenticated; gating it would break orchestration."
+  test:
+    scope: integration
+    component: Auth
+    type: behavior
+  criticality: high
+
+INT-PP-B17:
+  version: 1.1.0
+  status: active
+  statement: "With no credentials configured and auth not explicitly disabled, protected routes MUST fail closed with 503 rather than serve open, on every surface including the /mcp mount."
+  rationale: "A misconfigured deploy must refuse to serve rather than silently expose client data."
+  test:
+    scope: integration
+    component: Auth
+    type: invariant
+  criticality: critical
+
+INT-PP-B18:
+  version: 1.0.0
+  status: active
+  statement: "Listing projects MUST skip a project whose stored file is unreadable rather than fail the whole listing."
+  rationale: "One corrupt project file must not take down the hub for every other client."
+  test:
+    scope: unit
+    component: FileProjectRepository
+    type: behavior
+  criticality: high
+
+INT-PP-B19:
+  version: 1.0.0
+  status: active
+  statement: "Saving a project MUST write its file atomically, leaving a single complete file and no partial or temporary remnant."
+  rationale: "A crash mid-write must never leave a half-written project that cannot be read back."
+  test:
+    scope: unit
+    component: FileProjectRepository
+    type: invariant
+  criticality: high
+
+INT-PP-B20:
+  version: 1.0.0
+  status: active
+  statement: "Every MCP tool MUST drive the same use case as the HTTP API: a screen saved through the MCP door MUST be the screen the API and the UI read back."
+  rationale: "MCP is a third door into the one shared core; if any adapter had its own write path, what an agent built and what the operator sees could diverge."
+  test:
+    scope: integration
+    component: McpAdapter
+    type: invariant
+  criticality: critical
+
+INT-PP-B21:
+  version: 1.1.0
+  status: active
+  statement: "The MCP tool list MUST mirror the wired inbound use cases: every project, screen, template, and block operation of the API is exposed as a tool."
+  rationale: "Agents discover capability from the tool list; a missing tool hides an operation the instance supports, and an extra one advertises an operation it cannot perform."
+  test:
+    scope: integration
+    component: McpAdapter
+    type: contract
+  criticality: high
+
+INT-PP-B22:
+  version: 1.1.0
+  status: active
+  statement: "Saving a screen or template whose markup carries a literal color (hex, rgb(), numeric hsl()) MUST be rejected with the violation report, on every door. A hex hit in the HTML MUST say that a '#' followed by three to eight hex digits reads as a color, demo content included, and how to write such a reference so it passes."
+  rationale: "Token discipline is the product's defining rule: a literal color never reskins with the brand and breaks at handoff, so it must be a gate, not a convention."
+  test:
+    scope: integration
+    component: TokenDiscipline
+    type: invariant
+  criticality: critical
+
+INT-PP-B23:
+  version: 1.0.0
+  status: active
+  statement: "Saving a theme MUST be rejected with the violation report unless it carries exactly the canonical token set with well-formed values."
+  rationale: "A theme save replaces the whole set: a typo'd key would silently style nothing and a partial set would silently drop brand values."
+  test:
+    scope: integration
+    component: TokenDiscipline
+    type: invariant
+  criticality: high
+
+INT-PP-B24:
+  version: 1.0.0
+  status: active
+  statement: "Deleting a screen MUST remove it and persist, and deleting the last remaining screen MUST be refused."
+  rationale: "Discarding a rejected screen is part of the live session; an empty project would strand the editor."
+  test:
+    scope: integration
+    component: DeleteScreen
+    type: behavior
+  criticality: medium
+
+INT-PP-B25:
+  version: 1.0.0
+  status: active
+  statement: "Deleting a saved template MUST remove it, and deleting a built-in template MUST be refused."
+  rationale: "Instances accrete operator templates over engagements; the built-in examples are the floor every instance keeps."
+  test:
+    scope: integration
+    component: DeleteTemplate
+    type: behavior
+  criticality: medium
+
+INT-PP-B26:
+  version: 1.0.0
+  status: active
+  statement: "The block vocabulary MUST be served by the instance (API and MCP), and every block's markup MUST itself pass the token-discipline lint."
+  rationale: "The palette is the shared vocabulary of every door; serving it kills the hand-maintained copy, and an off-token block would teach every screen the wrong markup."
+  test:
+    scope: integration
+    component: BlockLibrary
+    type: contract
+  criticality: high
+
+INT-PP-B27:
+  version: 1.0.0
+  status: active
+  statement: "A project MUST carry named colour schemes: saving one persists a full canonical token set the editor can re-apply, a non-canonical set is refused, and deleting a scheme removes it."
+  rationale: "An engagement pre-configures the customer's palette options so the live session is one-click flips between whole looks; a scheme that skipped token discipline would apply a broken palette."
+  test:
+    scope: integration
+    component: ProjectApi
+    type: behavior
+  criticality: high
+
+INT-PP-B28:
+  version: 1.0.0
+  status: active
+  statement: "In mcp auth scope (PROTOPANE_AUTH_SCOPE=mcp) the gate MUST still cover the /mcp machine door fail-closed (valid Basic admitted, 503 when unconfigured, 401 otherwise) and MUST serve the human surfaces (SPA, /api) open for an OIDC reverse proxy in front to gate; it MUST NOT leave /mcp open in this scope."
+  rationale: "An MCP client is a non-interactive agent that cannot complete a browser OIDC login, so the machine door keeps its machine credential (HTTP Basic) while humans authenticate through oauth2-proxy on the other surfaces. The app owns only the /mcp half of the split and the chart couples the two, so 'every surface rejects the unauthenticated' holds across the pair without forcing agents through an interactive flow (ADR-031)."
+  test:
+    scope: integration
+    component: Auth
+    type: invariant
+  criticality: critical
+
+INT-PP-B29:
+  version: 1.0.0
+  status: active
+  statement: "Renaming a project MUST persist the new display name, and a new slug MUST move the project whole: retrievable at the new slug with its theme and screens, gone from the old."
+  rationale: "The slug is the identity and the cross-studio join key; renaming it is how a stale prototype stops answering for a live repo without losing the work."
+  test:
+    scope: integration
+    component: ProjectApi
+    type: behavior
+  criticality: high
+
+INT-PP-B30:
+  version: 1.0.0
+  status: active
+  statement: "Renaming to an occupied or malformed target slug MUST be refused with the reason, leaving the project unchanged."
+  rationale: "A slug collision would graft one client's identity onto another's work; a malformed slug would break the URL and the storage key."
+  test:
+    scope: unit
+    component: RenameProject
+    type: invariant
+  criticality: high
+
+INT-PP-B31:
+  version: 1.0.0
+  status: active
+  statement: "Archiving a project MUST keep its data and drop it from the default listing while it stays listable (marked archived) on request; unarchiving MUST restore it."
+  rationale: "Stale engagement work is parked visibly and revivably, not deleted; the default listing stays the live working set."
+  test:
+    scope: integration
+    component: ProjectApi
+    type: behavior
+  criticality: high
+
+INT-PP-B32:
+  version: 2.0.0
+  status: active
+  statement: "Every vendored DESIGN.md MUST parse into a design system carrying the complete canonical 19-key shadcn token set, seeded from its swatches written in any of three notations: a bold-named list entry with its value in parentheses or after a colon, or a table row; a swatch named exactly for a role takes that role where the role's readability rule allows it, and every vendored system's foreground MUST reach 3:1 against its background. Its muted, border and input tokens MUST never equal its background, and a saturated secondary MUST NOT become its muted surface."
+  rationale: "A reference palette is only seedable if it speaks the exact token vocabulary a project theme does; a partial set could not be applied in one click. 2.0.0 is MAJOR because the parse of 96 of the 152 systems changes: 67 written in the colon or table notation parsed to no swatch at all and seeded the default white set, so choosing one gave no look; a system naming no muted, border or input left them on its background, where a hairline or an input's edge cannot be seen; and a saturated brand secondary fell through to the muted surface and every border."
+  test:
+    scope: unit
+    component: DesignMdParser
+    type: behavior
+  criticality: high
+
+INT-PP-B33:
+  version: 1.0.0
+  status: active
+  statement: "Every design-system scheme MUST pass the token-discipline gate: the parsed tokens are exactly the canonical set with well-formed values."
+  rationale: "The library feeds the same save path as the live theme, so a malformed or off-token reference palette would apply a broken theme; the gate every theme clears must hold for the shipped catalogue too."
+  test:
+    scope: unit
+    component: DesignSystemLibrary
+    type: invariant
+  criticality: high
+
+INT-PP-B34:
+  version: 2.1.0
+  status: active
+  statement: "The design-system library MUST be exposed read-only over both HTTP and MCP. The HTTP listing MUST return every vendored system with its full token set, and the HTTP read by slug MUST return one system whole (its full token set, guidance and source), refusing an unknown slug with HTTP 404 and the reason. Over MCP, list_design_systems MUST answer with every vendored system's slug, name and category and no token set or guidance, and get_design_system MUST answer with one system by slug whole (its full token set, guidance and source), refusing an unknown slug with the reason."
+  rationale: "Both doors read the one shared use case; an agent or the UI must be able to enumerate the reference palettes and read any one's tokens to seed a theme, and neither door may expose a write path over a shipped catalogue. An agent's tool result has a budget, and the catalogue whole, every system's guidance included, answers in megabytes; the listing that names each system and the read of the one the agent seeds from each fit inside it."
+  test:
+    scope: integration
+    component: DesignSystemLibrary
+    type: contract
+  criticality: high
+
+INT-PP-B35:
+  version: 1.0.0
+  status: active
+  statement: "Stating a fact on the event bus MUST NOT change the act that caused it. With the event transport unreachable, every act that would publish (a project created, a theme, scheme, or screen saved or deleted, an export, a rename, an archive or unarchive, a delete) MUST complete with the same outcome, the same result, and the same state on disk as it does with the transport up, and each dropped publish MUST be logged at warning. A publish MUST NOT be retried inside the caller's latency budget, queued into unbounded memory, or surfaced to the caller as an error, and no readiness probe, health check, or startup path may depend on the transport. Every published event MUST be a CloudEvent whose type is one row of the hub's own events page under the prototyping domain, never composed at a call site, carrying the project slug and the identity of the screen, scheme, or theme it is about, and never a screen's markup or a theme's token values."
+  rationale: "REF-Events section 6 states the one-way rule as the test every producer attests. A save is the act the design session cannot lose to a broker: the customer is iterating live, and a screen that failed to persist because the bus was down would be a design lost mid-session. The guarantee is enforced at the one call site (state_fact) rather than assumed of the adapter: a publisher is contractually forbidden from raising, but a caller trusting that contract and being wrong would fail an act it had already committed. No markup and no token value enters an event because a bus fans out to every subscriber with a retention the producer does not control, and a customer's prototype is exactly the payload that must not leave the hub by a side door; the live-view refresh signal (SSE, the project change notifier) is a separate, transient channel and is not replaced. The page equality is REF-Events section 3: each owner states its own types where its tests can hold them, so the consumer's contract and the adapter's vocabulary cannot drift apart."
+  test:
+    scope: integration
+    component: EventPublishing
+    type: invariant
+  criticality: high
+
+INT-PP-E01:
+  version: 1.0.0
+  status: active
+  statement: "Opening a project MUST render the visual builder and the theme panel with no uncaught errors."
+  rationale: "A clean boot is the floor; if the editor or panel fails to mount the tool is unusable."
+  test:
+    scope: e2e
+    component: Editor
+    type: behavior
+  criticality: critical
+
+INT-PP-E02:
+  version: 1.0.0
+  status: active
+  statement: "The canvas MUST render the screen with theme tokens applied, not as unstyled markup."
+  rationale: "Proves the self-hosted, offline Tailwind runtime resolves shadcn utilities in the canvas iframe."
+  test:
+    scope: e2e
+    component: Canvas
+    type: behavior
+  criticality: critical
+
+INT-PP-E03:
+  version: 1.0.0
+  status: active
+  statement: "Selecting a theme preset MUST change the canvas primary colour live."
+  rationale: "Live re-theming with the customer is the core workflow; a preset must reskin the canvas."
+  test:
+    scope: e2e
+    component: ThemePanel
+    type: behavior
+  criticality: high
+
+INT-PP-E04:
+  version: 1.0.0
+  status: active
+  statement: "A colour control in the theme panel MUST reflect the active value after a preset is applied."
+  rationale: "If the swatch and the canvas disagree, the operator cannot trust the panel."
+  test:
+    scope: e2e
+    component: ThemePanel
+    type: behavior
+  criticality: medium
+
+INT-PP-E05:
+  version: 1.0.0
+  status: active
+  statement: "Toggling dark mode MUST apply the dark theme to the canvas."
+  rationale: "Customers review light and dark; the toggle must reach the canvas iframe, not only the app chrome."
+  test:
+    scope: e2e
+    component: ThemePanel
+    type: behavior
+  criticality: medium
+
+INT-PP-E06:
+  version: 1.0.0
+  status: active
+  statement: "The block palette MUST expose the shadcn component blocks (Button, Card, Input, Badge)."
+  rationale: "Without on-brand component blocks there is nothing to build a page from."
+  test:
+    scope: e2e
+    component: Blocks
+    type: behavior
+  criticality: high
+
+INT-PP-E07:
+  version: 1.0.0
+  status: active
+  statement: "Creating a project from the hub MUST open its editor and list it on the hub."
+  rationale: "The headline hub action: a new client prototype must be created and reachable."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: critical
+
+INT-PP-E08:
+  version: 1.0.0
+  status: active
+  statement: "A theme set on a project MUST persist across a reload."
+  rationale: "The brand approved with the customer has to survive closing and reopening the project."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: critical
+
+INT-PP-E09:
+  version: 1.0.0
+  status: active
+  statement: "An edited screen MUST persist across a reload."
+  rationale: "Saved layout work must not vanish when the project is reopened."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: high
+
+INT-PP-E10:
+  version: 1.0.0
+  status: active
+  statement: "Deleting a project from the hub MUST remove it from the listing."
+  rationale: "Closing out a client engagement must actually remove it."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: medium
+
+INT-PP-E11:
+  version: 1.0.0
+  status: active
+  statement: "Applying a colour-scheme preset MUST change the full palette, and the theme panel swatches MUST reflect the new values."
+  rationale: "Presets are whole schemes, not just an accent; the panel must show what is applied."
+  test:
+    scope: e2e
+    component: ThemePanel
+    type: behavior
+  criticality: medium
+
+INT-PP-E12:
+  version: 1.0.0
+  status: active
+  statement: "Creating a project from a template in the hub MUST open it with the template's content."
+  rationale: "Opening an example must actually start from that example, ready to drag around."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: high
+
+INT-PP-E13:
+  version: 1.0.0
+  status: active
+  statement: "Saving the current screen as a template MUST make it selectable when creating a new project."
+  rationale: "Operators must be able to capture a layout they like and reuse it on the next client."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: medium
+
+INT-PP-E14:
+  version: 1.0.0
+  status: active
+  statement: "The hub MUST surface the MCP connect command for this instance, copyable."
+  rationale: "The MCP door is invisible without an advertisement; the hub is where an operator learns the instance serves agents."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: medium
+
+INT-PP-E15:
+  version: 1.0.0
+  status: active
+  statement: "Deleting a page from the editor MUST remove it from the page bar, and the last page MUST NOT offer deletion."
+  rationale: "Discarding a rejected screen is part of the live session; stranding the editor with zero pages is not."
+  test:
+    scope: e2e
+    component: Editor
+    type: behavior
+  criticality: medium
+
+INT-PP-E16:
+  version: 1.0.0
+  status: active
+  statement: "Selecting a typography preset MUST change the canvas font live."
+  rationale: "Typography is part of the brand; the customer must see the type direction on the canvas, not imagine it."
+  test:
+    scope: e2e
+    component: ThemePanel
+    type: behavior
+  criticality: medium
+
+INT-PP-E17:
+  version: 1.0.0
+  status: active
+  statement: "Deleting a saved template from the hub MUST remove it from the template choices; built-in templates MUST offer no delete control."
+  rationale: "Instances accrete operator templates across engagements; pruning them belongs in the hub, not in an API call."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: medium
+
+INT-PP-E18:
+  version: 1.0.0
+  status: active
+  statement: "Renaming a project from the hub MUST show the new name in the listing."
+  rationale: "The rename act must be available where projects are managed, not only to agents."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: medium
+
+INT-PP-E19:
+  version: 1.0.0
+  status: active
+  statement: "Archiving a project from the hub MUST park it in a visible archived section, and unarchiving MUST return it to the active grid."
+  rationale: "Parked work must stay visible and revivable in the hub, one click each way."
+  test:
+    scope: e2e
+    component: Hub
+    type: behavior
+  criticality: medium
+
+INT-PP-E20:
+  version: 1.0.0
+  status: active
+  statement: "The design-systems gallery MUST list reference systems with colour swatches drawn from their tokens, and applying one MUST reskin the canvas to that system's theme."
+  rationale: "The reference library only helps in the live session if the operator can browse the palettes, read each at a glance, and seed the project theme from one in a click."
+  test:
+    scope: e2e
+    component: DesignSystemsPanel
+    type: behavior
+  criticality: high
+
+INT-PP-E21:
+  version: 1.0.0
+  status: active
+  statement: "Clicking Refresh MUST pull a server-side change into the canvas without a full page reload."
+  rationale: "Changes made through a separate design session only help the operator if they can be pulled in without losing their place in the editor."
+  test:
+    scope: e2e
+    component: EditorPage
+    type: behavior
+  criticality: high
+
+INT-PP-E22:
+  version: 1.0.0
+  status: active
+  statement: "Refreshing with unsaved local edits MUST confirm before discarding them, and MUST keep the local edit if the operator dismisses the confirm."
+  rationale: "Refresh overwrites the canvas from the server; an operator's in-progress edits must never be silently dropped."
+  test:
+    scope: e2e
+    component: EditorPage
+    type: behavior
+  criticality: high
+
+INT-PP-E23:
+  version: 1.0.0
+  status: active
+  statement: "Switching to an untouched page on a multi-page project MUST NOT make Refresh treat that page as having unsaved changes."
+  rationale: "The dirty-check baseline is per page; a page that is only switched into and never edited must read as clean, or every ordinary multi-page session sees a false 'unsaved changes' prompt."
+  test:
+    scope: e2e
+    component: EditorPage
+    type: behavior
+  criticality: high
+
+INT-PP-E24:
+  version: 1.0.0
+  status: active
+  statement: "Deleting the active page and landing on an untouched page MUST NOT make Refresh treat that page as having unsaved changes."
+  rationale: "deletePage also loads its landing page into the canvas via setComponents; that page's dirty-check baseline must be primed the same way switchTo's is, or the identical serialization-drift false positive fires on delete instead of switch."
+  test:
+    scope: e2e
+    component: EditorPage
+    type: behavior
+  criticality: high
+
+INT-PP-E25:
+  version: 1.0.0
+  status: active
+  statement: "Selecting Tablet MUST resize the canvas to 768px and Mobile to 390px, and the page MUST expose exactly one device switcher."
+  rationale: "The webpage preset's own device panel selected a device the editor never defines, so its phone icon lit up while the canvas kept its width; a single control, measured at the frame, is the only shape that cannot drift."
+  test:
+    scope: e2e
+    component: Editor
+    type: behavior
+  criticality: high
+
+INT-PP-E26:
+  version: 1.0.0
+  status: active
+  statement: "A style set in the editor while Mobile is selected MUST land in getCss() with no media condition, and one set while Tablet or Desktop is selected MUST land under @media (min-width: 640px); the editor MUST open on Desktop."
+  rationale: "The house phone line is Tailwind's sm at 640px and the markup's unprefixed utilities are the phone layout, so the rules the editor writes read the same way: Mobile edits are the base, and wider edits layer over it at the same line. Screens save getCss() and the export carries it, so a rule written on another line or in the other direction would ship a layout that contradicts the classes beside it."
+  test:
+    scope: e2e
+    component: Editor
+    type: behavior
+  criticality: high
+
+INT-PP-E27:
+  version: 1.0.0
+  status: active
+  statement: "A style saved on a screen MUST still be applied in the canvas after the editor reloads, and MUST survive the next save."
+  rationale: "A screen saves its HTML and its CSS together, so the canvas loads them together: a canvas loaded from the HTML alone shows the screen without its styles, and its next save writes that empty rule set over the saved one, losing every style-manager rule, per-device rules included."
+  test:
+    scope: e2e
+    component: EditorPage
+    type: behavior
+  criticality: high
+
+INT-PP-E29:
+  version: 1.0.0
+  status: active
+  statement: "A style attribute in a screen's markup MUST apply in the canvas at every width, whichever device is selected when the screen loads, and MUST survive a save and a reload."
+  rationale: "Style attributes are part of the markup templates and agents write (the analytics template's chart bars carry their heights that way), and an inline style applies at every width. The editor turns each one into an id rule as it parses the markup, so the load keeps those rules beside the screen's saved ones and files them unconditioned; a rule filed under the selected device's band, or cleared by the load, leaves the element unstyled at phone width or everywhere, and the next save persists that loss."
+  test:
+    scope: e2e
+    component: EditorPage
+    type: behavior
+  criticality: high
+
+# --- the MCP tool table is held to the adapter, the way the events page is held
+# --- to the publisher: a hand-maintained mirror of a live source must be tested ---
+
+INT-PP-B36:
+  version: 1.0.0
+  status: active
+  statement: "The MCP tool table in docs/src/content/docs/architecture.md MUST state exactly the tools the MCP adapter (protopane/adapters/inbound/mcp/server.py) registers: every registered tool appears by name in the table's first column, and the table names no tool the adapter does not register. The registered set derives from the adapter source; the stated set derives from the page."
+  rationale: "The tool table is the consumer's contract and the registrations are what the door serves; maintained by hand on both sides they drift silently, and the 2026-08 docs reconciliation found exactly that across the fleet, with three parts documenting none of their tools. The events page already carries this discipline against the publisher's constants; this claim extends it to the tool roster, so a tool shipped without its row, or a row surviving its tool, fails the build instead of waiting for the next audit."
+  test:
+    scope: integration
+    component: Docs
+    type: invariant
+  criticality: medium
+
+INT-PP-B37:
+  version: 1.0.0
+  status: active
+  statement: "Every MCP write MUST answer with what it wrote, not the project around it: save_screen with the saved screen, save_scheme with the saved scheme, save_theme with the saved tokens and the provenance the project records, each delete with the slug it removed, and rename_project, archive_project and unarchive_project with the project's list_projects entry; get_project and export_project MUST remain the reads that return the project whole."
+  rationale: "An agent's tool result has a budget. A write that echoes a project of tens of screens answers in hundreds of kilobytes, past what the agent can read back, so no write on a large project could be confirmed in context; the item it wrote is what the agent needs to confirm the write."
+  test:
+    scope: integration
+    component: McpAdapter
+    type: contract
+  criticality: high
+
+INT-PP-B38:
+  version: 1.2.0
+  status: active
+  statement: "The MCP door MUST serve a guide (get_guide) carrying the long-form reference an agent authors from: what a project, theme, scheme, screen and template are; the closed token set with each token's role, rendered from the canonical set the theme gate enforces, and the webfonts the editor canvas loads, the same families its font sheet requests; the markup rules the write gate enforces, their responsive example on the 640px line (sm:); a phone layout section stating the phone line (unprefixed utilities are the phone layout, sm: is 640px and up, every multi-column grid carries a breakpoint prefix), every phone rule as a value, a condition and a default, the navigation table with its rule that navigation is never hidden without a named replacement, a menu closed on load and the primary action outside it, the table rule (compare rows scroll in a labelled region, standalone rows stack), the form rule (one column, 16px inputs with type and inputmode), what static markup expresses without script and what is shown closed with its trigger visible; the block vocabulary, rendered from the list list_blocks serves, with each served phone block documented as what changes, at which width, the rule that picks it and its default state, every block the guide names a served block; how palette variants are offered as schemes inside one project; and the build flow. The server's MCP instructions MUST name the guide and its phone layout rules, and the bootstrap-project prompt MUST carry the guide's build flow, rendered from the same source."
+  rationale: "An agent with no user at the keyboard sees the tools and the instructions, never a prompt, and a reference kept outside the tool drifts from what the instance enforces. Rendering the token set and the block list from their sources, and holding the webfont list to the canvas's font sheet, keeps the guide saying what the instance holds; one build flow keeps the prompt and the guide from telling an agent two different things. An agent told only that responsive utilities carry no colour authors the desktop layout and at best stacks its grids; the phone section and the phone blocks' documentation are what let it write a phone version in static markup."
+  test:
+    scope: integration
+    component: McpAdapter
+    type: contract
+  criticality: high
+
+INT-PP-B39:
+  version: 1.0.0
+  status: active
+  statement: "Every multi-column grid in the block vocabulary MUST sit behind a min-width breakpoint prefix (sm, md, lg, xl or 2xl), so a block-built screen stacks to one column at phone width."
+  rationale: "The device preview exists to show how a screen reads on a phone; a layout block whose columns never stack makes the phone view the desktop view squeezed, for exactly the screens people build in a session."
+  test:
+    scope: unit
+    component: BlockLibrary
+    type: contract
+  criticality: high
+
+INT-PP-B40:
+  version: 1.1.0
+  status: active
+  statement: "The block vocabulary MUST carry the phone forms of navigation as static markup with no script: the Navbar block (sh-navbar) wraps its brand, links and action onto further lines and hides no link; the bottom bar (sh-bottom-bar) is a nav fixed to the bottom edge below 640px only (sm:hidden), three to five equal destinations each an icon above a one or two word label, padded by max(<gap>, env(safe-area-inset-bottom)), its height set in its markup and the page's scroll-padding-bottom below 640px equal to that height, so a focused control is never hidden behind it; the sheet menu (sh-sheet-menu) holds every link of its desktop nav in a <details> closed on load whose summary reads Menu, keeps two or three of those links visible beside it below 640px, shows the full nav from 640px up (sm:), and keeps the primary action outside the menu."
+  rationale: "A design session builds its phone version from the palette. With no phone form of navigation in it, a screen hides its links below 640px with nothing in their place or pushes the page sideways, and the phone preview shows a squeezed desktop page instead of the shape the customer approves."
+  test:
+    scope: unit
+    component: BlockLibrary
+    type: contract
+  criticality: high
+
+INT-PP-B41:
+  version: 1.1.0
+  status: active
+  statement: "The Table block (sh-table) and every <table> in the built-in templates MUST sit inside a focusable, labelled scroll region (role=region, tabindex=0, overflow-x-auto, aria-labelledby naming the table's caption, an id held by exactly one element of the template), and the stacked-rows block (sh-stacked-rows) MUST render each standalone record as its own term and description list (<dl>), with no <table>. A table, row or cell in the block vocabulary or the built-in templates MUST NOT carry a display utility (the CSS stacking of a <table>). Both blocks are static markup with no script."
+  rationale: "A clipped table hides columns at phone width with no way to reach them, and a table stacked with CSS loses the semantics assistive technology reads. The compare form scrolls inside a region a keyboard can focus, and the stacked form is its own markup."
+  test:
+    scope: unit
+    component: BlockLibrary
+    type: contract
+  criticality: high
+
+INT-PP-B42:
+  version: 1.0.0
+  status: active
+  statement: "The one-column form block (sh-form) MUST put each label above its field and give every field its keyboard and fill attributes: a type from text, email, tel, url or search (never number), inputmode or autocomplete on every text field, enterkeyhint on every field, and spellcheck=false on names, emails and references. The pinned action bar block (sh-action-bar) MUST follow its form in DOM order with a bar fixed to the bottom edge whose height is in svh, padded by max(<gap>, env(safe-area-inset-bottom)), with the page's scroll-padding-bottom and the content's bottom padding equal to that height, a submit button tied to the form, and a polite live region for validation. Both blocks are static markup with no script."
+  rationale: "A phone form fails on the device rather than in the preview: the wrong keyboard, autofill that never fires, a submit lost behind the home indicator, a focused field under a fixed bar. The blocks carry each attribute, so a screen built from them carries it too."
+  test:
+    scope: unit
+    component: BlockLibrary
+    type: contract
+  criticality: high
+
+INT-PP-B43:
+  version: 1.0.0
+  status: active
+  statement: "Every input, textarea and select in the block vocabulary and in the built-in templates MUST render at 16px or larger below 640px: an unprefixed text size of text-base or larger, a smaller size only behind a min-width breakpoint prefix (text-base sm:text-sm)."
+  rationale: "iOS Safari zooms the page when a focused control's text is under 16px, and blocking that zoom fails WCAG 1.4.4. A 14px control in the palette or a template puts the zoom into every screen built from it."
+  test:
+    scope: unit
+    component: BlockLibrary
+    type: contract
+  criticality: high
+
+INT-PP-E28:
+  version: 1.1.0
+  status: active
+  statement: "In the Mobile canvas (390px), a project created from the landing, the dashboard or the analytics template MUST show the template's nav links, and the canvas document MUST NOT scroll horizontally (its scrollWidth no wider than its clientWidth)."
+  rationale: "Three destinations show inline at phone width by the navigation table, so a template hiding them below 640px leaves a phone screen with no way between sections, and a header that cannot wrap pushes the whole page sideways. Only the rendered canvas at the Mobile width shows both."
+  test:
+    scope: e2e
+    component: Editor
+    type: behavior
+  criticality: high

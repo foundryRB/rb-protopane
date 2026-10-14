@@ -1,0 +1,66 @@
+<div class="space-y-6 p-2">
+  <header class="border-b pb-4">
+    <h1 class="text-2xl font-semibold tracking-tight text-foreground">Settings</h1>
+    <p class="mt-1 text-sm text-muted-foreground">Manage your account, workspace, and notifications.</p>
+  </header>
+
+  <div class="grid gap-8 lg:grid-cols-[200px_1fr]">
+    <nav class="flex flex-col gap-1 text-sm">
+      <a class="rounded-md bg-accent px-3 py-2 font-medium text-foreground">Profile</a>
+      <a class="rounded-md px-3 py-2 text-muted-foreground hover:text-foreground">Workspace</a>
+      <a class="rounded-md px-3 py-2 text-muted-foreground hover:text-foreground">Billing</a>
+      <a class="rounded-md px-3 py-2 text-muted-foreground hover:text-foreground">Notifications</a>
+      <a class="rounded-md px-3 py-2 text-muted-foreground hover:text-foreground">Danger zone</a>
+    </nav>
+
+    <div class="max-w-xl space-y-6">
+      <div class="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+        <div class="font-semibold leading-none tracking-tight">Profile</div>
+        <div class="mt-1 text-sm text-muted-foreground">How you appear across the workspace.</div>
+        <div class="mt-4 flex items-center gap-4">
+          <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-muted text-lg font-medium text-muted-foreground">JD</span>
+          <button class="inline-flex items-center rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium hover:bg-accent">Change avatar</button>
+        </div>
+        <div class="mt-4 grid gap-4">
+          <div class="grid w-full items-center gap-1.5">
+            <label class="text-sm font-medium leading-none text-foreground">Full name</label>
+            <input value="Jane Doe" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm sm:text-sm" />
+          </div>
+          <div class="grid w-full items-center gap-1.5">
+            <label class="text-sm font-medium leading-none text-foreground">Email</label>
+            <input value="jane@acme.com" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm sm:text-sm" />
+          </div>
+        </div>
+        <div class="mt-6 flex justify-end gap-2">
+          <button class="inline-flex items-center rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium hover:bg-accent">Cancel</button>
+          <button class="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90">Save changes</button>
+        </div>
+      </div>
+
+      <div class="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+        <div class="font-semibold leading-none tracking-tight">Notifications</div>
+        <div class="mt-1 text-sm text-muted-foreground">Choose what reaches your inbox.</div>
+        <div class="mt-4 flex flex-col gap-3 text-sm">
+          <label class="flex items-center justify-between gap-2">
+            <span>Product updates</span>
+            <span class="inline-flex h-5 w-9 items-center rounded-full bg-primary px-0.5"><span class="ml-auto h-4 w-4 rounded-full bg-background"></span></span>
+          </label>
+          <label class="flex items-center justify-between gap-2">
+            <span>Weekly digest</span>
+            <span class="inline-flex h-5 w-9 items-center rounded-full bg-primary px-0.5"><span class="ml-auto h-4 w-4 rounded-full bg-background"></span></span>
+          </label>
+          <label class="flex items-center justify-between gap-2">
+            <span>Mentions only</span>
+            <span class="inline-flex h-5 w-9 items-center rounded-full bg-secondary px-0.5"><span class="h-4 w-4 rounded-full bg-background"></span></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-destructive p-6">
+        <div class="font-semibold leading-none tracking-tight text-destructive">Danger zone</div>
+        <div class="mt-1 text-sm text-muted-foreground">Deleting the workspace removes every project permanently.</div>
+        <button class="mt-4 inline-flex items-center rounded-md bg-destructive px-3 py-1.5 text-sm font-medium text-destructive-foreground hover:bg-destructive/90">Delete workspace</button>
+      </div>
+    </div>
+  </div>
+</div>

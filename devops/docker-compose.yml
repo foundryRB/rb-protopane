@@ -1,0 +1,32 @@
+name: protopane
+
+services:
+  protopane:
+    build:
+      context: ..
+      dockerfile: devops/Dockerfile
+      args:
+        # Bundle claude-agent-sdk into the image so the local design chat works.
+        INCLUDE_AGENT: "true"
+    image: protopane-app:latest
+    container_name: protopane
+    environment:
+      # Keep project files on the named volume so client prototypes survive restarts.
+      PROTOPANE_PROJECTS_DIR: /data/projects
+      # HTTP Basic credentials. protopane fails closed without these. Change the
+      # password before exposing this instance beyond localhost.
+      PROTOPANE_AUTH_USER: "studio"
+      PROTOPANE_AUTH_PASSWORD: "change-me"
+      # Local-only AI design chat. The agent runs on your Claude subscription: mint a
+      # token with `claude setup-token` and put it in devops/.env (gitignored) as
+      # CLAUDE_CODE_OAUTH_TOKEN=... . Do NOT set ANTHROPIC_API_KEY (it would bill the API).
+      PROTOPANE_AGENT_ENABLED: "true"
+      CLAUDE_CODE_OAUTH_TOKEN: "${CLAUDE_CODE_OAUTH_TOKEN:-}"
+    ports:
+      - "8800:8800"
+    volumes:
+      - protopane-data:/data
+    restart: unless-stopped
+
+volumes:
+  protopane-data:

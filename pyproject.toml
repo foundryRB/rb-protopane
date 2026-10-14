@@ -1,0 +1,63 @@
+[project]
+name = "protopane"
+version = "0.1.0"
+description = "Multi-project visual prototyping hub: theme a shadcn UI and build screens with a canvas, persisted per client project."
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "pydantic>=2.6",
+    # mcp 2.0 moved FastMCP out of mcp.server.fastmcp and renamed McpError to
+    # MCPError; the MCP adapter is written against the 1.x surface.
+    "mcp>=1.28,<2",
+    # The event bus client, with the nkeys extra the platform's signed credential
+    # needs. Imported lazily inside the publisher's worker, so a hub with no bus
+    # grant never touches it.
+    "nats-py[nkeys]>=2.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+    "httpx>=0.27",
+    "csd-pytest-intent~=0.3.0",
+]
+# Local-only: powers the in-page design chat. Never installed on the public hub image.
+agent = [
+    "claude-agent-sdk>=0.2",
+]
+
+[project.scripts]
+protopane = "protopane.run:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["protopane*"]
+
+[tool.setuptools.package-data]
+protopane = [
+    "*.html",
+    "templates_lib/*.html",
+    "design_systems_lib/**/*.md",
+    "design_systems_lib/**/*.txt",
+    "design_systems_lib/**/*.json",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+# An identity's stage recipe is CSS held in strings: a gradient is one long line, not a style fault.
+"design-systems/*/brand/*.py" = ["E501"]
