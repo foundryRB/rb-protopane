@@ -18,6 +18,9 @@ __all__ = ["main"]
 
 _REPO = "nexu-io/open-design"
 
+# Upstream systems this installation never vendors, whichever set is synced.
+_EXCLUDED: frozenset[str] = frozenset({"vodafone"})
+
 # The curated default set: recognisable products with real, well-formed DESIGN.md
 # swatch sections. Any that 404 upstream are skipped rather than failing the run.
 _CURATED: list[str] = [
@@ -78,7 +81,7 @@ def main() -> None:
     lib.mkdir(parents=True, exist_ok=True)
 
     sha = _main_sha()
-    slugs = _all_slugs(sha) if vendor_all else _CURATED
+    slugs = [s for s in (_all_slugs(sha) if vendor_all else _CURATED) if s not in _EXCLUDED]
 
     vendored = 0
     for slug in slugs:
