@@ -77,7 +77,8 @@ def test_an_identitys_stage_recipe_renders_both_appearances_and_names_no_other_h
     assert ".ambient > *" in css and ".ambient::before" in css and ".ambient::after" in css
     assert ':root[data-theme="light"] .ambient' in css
     assert "prefers-reduced-motion" in css and "@media print" in css
-    assert "#00a86b" not in css.lower() or "rgba(0, 168, 107" in css  # the green, never a wash in light
+    # the green, never a wash in light
+    assert "#00a86b" not in css.lower() or "rgba(0, 168, 107" in css
     assert "design-systems/rb-software-engineering/brand/stage_css.py" in css
     for foreign in ("upstream", "_sync", ":/", "fork"):
         assert foreign not in css.lower(), foreign
