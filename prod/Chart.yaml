@@ -1,0 +1,9 @@
+apiVersion: v2
+name: protopane
+description: prod environment pin for protopane (ADR-025 deploy branch).
+type: application
+version: 1.0.0
+dependencies:
+  - name: protopane
+    version: 1.0.0
+    repository: oci://ghcr.io/foundryrb/charts
