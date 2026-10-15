@@ -14,7 +14,7 @@ def test_approved_identities_have_distinct_exact_light_and_dark_palettes():
         assert dark.tokens["--background"] != light.tokens["--background"]
         assert dark.tokens["--primary"] == light.tokens["--primary"]
         assert dark.source.startswith("https://")
-    assert systems["rb-software-engineering"].tokens["--primary"] == "0.00 100.00% 45.10%"
+    assert systems["rb-software-engineering"].tokens["--primary"] == "158.21 100.00% 32.94%"
 
 
 def test_packaged_presets_are_the_current_projection_of_their_identities():
@@ -133,14 +133,15 @@ def test_each_stage_recipe_draws_a_page_stage_behind_content_in_both_appearances
 
 def test_the_mark_is_one_labelled_snippet_whose_artwork_follows_the_appearance():
     """brand/mark.html is what a template's mark slot takes as it is: one element the reader hears
-    as the identity's name, sized by the slot's font-size, its tile red on paper and white on a
+    as the identity's name, sized by the slot's font-size, its tile ink on paper and light on a
     dark ground under light-dark(), and nothing it would fetch."""
     from pathlib import Path
 
     root = Path(__file__).resolve().parents[1]
     mark = (root / "design-systems/rb-software-engineering/brand/mark.html").read_text("utf-8")
     assert mark.startswith('<span class="mark" role="img" aria-label="') and mark.count("\n") == 1
-    assert "light-dark(#00a86b,#f2f4f8)" in mark  # the tile: red on paper, white on the dark stage
+    # the tile: ink on paper, light on the dark stage
+    assert "light-dark(#25282B,#f2f4f8)" in mark
     assert "width:2em;height:2em" in mark  # the slot's font-size sizes it
     for fetch in ("http", "url(", "<img", "<link"):
         assert fetch not in mark, fetch
