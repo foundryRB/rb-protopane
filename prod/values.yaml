@@ -12,4 +12,4 @@ protopane:
       tag: 1.0.4
     docs:
       repository: ghcr.io/foundryrb/protopane-docs
-      tag: 1.0.1
+      tag: 1.0.4
